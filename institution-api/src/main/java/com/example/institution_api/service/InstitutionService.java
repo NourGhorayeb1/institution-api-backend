@@ -30,9 +30,6 @@ public class InstitutionService {
     }
 
     public Institution createOrUpdate(Institution institution) {
-        if (institution.getId() != null && institution.getId() == 0) {
-            institution.setId(null); // ALLOW ID TO BE GENERATED
-        }
         return repository.save(institution);
     }
 

@@ -1,10 +1,10 @@
 package com.example.institution_api.model;
 
-public class User {
+public class SignupRequest {
     private String username;
     private String password;
 
-    public User(String username, String password) {
+    public SignupRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }
