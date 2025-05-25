@@ -2,10 +2,13 @@ package com.example.institution_api.controller;
 
 import com.example.institution_api.model.Institution;
 import com.example.institution_api.service.InstitutionService;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/institutions")
@@ -36,12 +39,14 @@ public class InstitutionController {
     }
 
     @PostMapping
-    public Institution createOrUpdate(@RequestBody Institution institution) {
-        return service.createOrUpdate(institution);
+    public ResponseEntity<Institution> createOrUpdate(@Validated @RequestBody Institution institution) {
+        Institution saved = service.createOrUpdate(institution);
+        return ResponseEntity.ok(saved);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteById(id);
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        service.deleteById(id); // throws if not found
+        return ResponseEntity.noContent().build();
     }
 }

@@ -5,6 +5,7 @@ import com.example.institution_api.repository.InstitutionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -34,6 +35,9 @@ public class InstitutionService {
     }
 
     public void deleteById(Long id) {
+        if (!repository.existsById(id)) {
+            throw new NoSuchElementException("Institution not found with ID: " + id);
+        }
         repository.deleteById(id);
     }
 
